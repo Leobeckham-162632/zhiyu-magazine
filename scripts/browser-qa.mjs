@@ -18,7 +18,8 @@ try {
   assert.equal(indexResponse.status(), 200);
   const entries = await indexResponse.json();
   const origin = new URL(base).origin;
-  const routes = ['', 'issues/', 'issues/vol-01/', 'articles/', 'categories/', ...['fiction', 'essays', 'poetry', 'notes', 'reviews'].map((item) => `categories/${item}/`), 'authors/', 'about/', 'colophon/', 'search/', ...entries.map((entry) => entry.url.replace(new URL(base).pathname, ''))];
+  const sitemap = await (await context.request.get(`${base}sitemap.xml`)).text();
+  const routes = [...new Set([...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => new URL(match[1]).pathname.replace(new URL(base).pathname, '')).concat('search/'))];
   // 匿名浏览器直接访问每页，并检查四种视口的布局边界。
   for (const route of routes) {
     const response = await page.goto(`${base}${route}`, { waitUntil: 'networkidle' });
@@ -29,6 +30,7 @@ try {
       const layout = await page.evaluate(() => ({ width: innerWidth, scroll: document.documentElement.scrollWidth, images: [...document.images].every((image) => image.complete && image.naturalWidth > 0) }));
       assert.ok(layout.scroll <= layout.width + 1, `${route} 在 ${width}px 横向溢出：${layout.scroll}`);
       assert.ok(layout.images, `${route} 图片未加载`);
+      if (route === '') await page.screenshot({ path: `${output}/home-viewport-${width}.png` });
       if (['', 'issues/vol-01/', 'articles/a-window-for-autumn/', 'search/'].includes(route) && [375, 1440].includes(width)) await page.screenshot({ path: `${output}/${route.replaceAll('/', '-') || 'home'}-${width}.png`, fullPage: true });
       checks.push({ route, width, status: response.status(), overflow: false });
     }
@@ -76,6 +78,15 @@ try {
   assert.equal(await page.evaluate(() => document.activeElement?.textContent), '跳至正文');
   await page.keyboard.press('Enter');
   assert.equal(await page.evaluate(() => document.activeElement?.id), 'main');
+  await page.setViewportSize({ width: 375, height: 850 });
+  await page.goto(base);
+  await page.getByRole('link', { name: '搜索作品', exact: true }).click();
+  await page.getByRole('searchbox').fill('修灯'); await formSubmit();
+  await page.getByRole('link', { name: '修灯的人', exact: true }).click();
+  await page.getByRole('button', { name: '放大字号', exact: true }).click();
+  await page.getByRole('button', { name: '恢复默认字号', exact: true }).click();
+  await page.getByRole('link', { name: '返回本期目录 ↗', exact: true }).click();
+  assert.ok(page.url().endsWith('/issues/vol-01/'));
   const noJS = await browser.newContext({ javaScriptEnabled: false, viewport: { width: 375, height: 900 } });
   const noJSPage = await noJS.newPage(); await noJSPage.goto(origin + lead.url);
   assert.ok((await noJSPage.locator('#article-body').innerText()).includes('银杏叶'));
@@ -83,7 +94,7 @@ try {
   await noJS.close();
   if (isPublic) { const missing = await page.goto(`${base}a-page-that-does-not-exist/`); assert.equal(missing.status(), 404); assert.ok((await page.locator('h1').innerText()).includes('暂未靠岸')); }
   assert.deepEqual(failures, [], failures.join('\n'));
-  const result = { testedAt: new Date().toISOString(), base, anonymous: true, articles: entries.length, responsiveChecks: checks.length, routes: routes.length, widths: [375,768,1024,1440], directArticleAndRefresh: true, search: ['标题','作者','简介','正文','空结果','栏目','URL查询','安全文本'], fontControl: true, keyboard: true, noJavaScriptReading: true, updateArticlePresent: Boolean(added), failures, checks };
+  const result = { testedAt: new Date().toISOString(), base, anonymous: true, articles: entries.length, responsiveChecks: checks.length, routes: routes.length, widths: [375,768,1024,1440], directArticleAndRefresh: true, search: ['标题','作者','简介','正文','空结果','栏目','URL查询','安全文本'], fontControl: true, keyboard: true, mobileInteractions: true, noJavaScriptReading: true, updateArticlePresent: Boolean(added), failures, checks };
   await writeFile(`${output}/result.json`, JSON.stringify(result, null, 2));
   console.log(JSON.stringify({ ...result, checks: undefined }, null, 2));
   async function formSubmit() { await page.getByRole('button', { name: '搜索', exact: true }).click(); }

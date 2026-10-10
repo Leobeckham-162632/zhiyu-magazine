@@ -1,0 +1,56 @@
+{
+  "testedAt": "2026-10-10T13:43:35.3301164Z",
+  "articleCount": 7,
+  "changedFiles": [
+    "src/content/articles/a-light-for-latecomers.md"
+  ],
+  "commit": "a37e25ba861c73d3da4c463fb706f8ab72a9eb59",
+  "run": "https://github.com/Leobeckham-162632/zhiyu-magazine/actions/runs/38056707552",
+  "results": [
+    {
+      "url": "https://leobeckham-162632.github.io/zhiyu-magazine/",
+      "status": 200,
+      "containsUpdate": true
+    },
+    {
+      "url": "https://leobeckham-162632.github.io/zhiyu-magazine/articles/a-light-for-latecomers/",
+      "status": 200,
+      "containsUpdate": true
+    },
+    {
+      "url": "https://leobeckham-162632.github.io/zhiyu-magazine/articles/",
+      "status": 200,
+      "containsUpdate": true
+    },
+    {
+      "url": "https://leobeckham-162632.github.io/zhiyu-magazine/categories/notes/",
+      "status": 200,
+      "containsUpdate": true
+    },
+    {
+      "url": "https://leobeckham-162632.github.io/zhiyu-magazine/authors/shen-deng/",
+      "status": 200,
+      "containsUpdate": true
+    },
+    {
+      "url": "https://leobeckham-162632.github.io/zhiyu-magazine/issues/vol-01/",
+      "status": 200,
+      "containsUpdate": true
+    },
+    {
+      "url": "https://leobeckham-162632.github.io/zhiyu-magazine/search-index.json",
+      "status": 200,
+      "containsUpdate": true
+    },
+    {
+      "url": "https://leobeckham-162632.github.io/zhiyu-magazine/rss.xml",
+      "status": 200,
+      "containsUpdate": true
+    },
+    {
+      "url": "https://leobeckham-162632.github.io/zhiyu-magazine/sitemap.xml",
+      "status": 200,
+      "containsUpdate": true
+    }
+  ]
+}

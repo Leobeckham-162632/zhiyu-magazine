@@ -1,0 +1,633 @@
+{
+  "testedAt": "2026-10-10T13:41:08.911Z",
+  "base": "https://leobeckham-162632.github.io/zhiyu-magazine/",
+  "anonymous": true,
+  "articles": 6,
+  "responsiveChecks": 100,
+  "routes": 25,
+  "widths": [
+    375,
+    768,
+    1024,
+    1440
+  ],
+  "directArticleAndRefresh": true,
+  "search": [
+    "标题",
+    "作者",
+    "简介",
+    "正文",
+    "空结果",
+    "栏目",
+    "URL查询",
+    "安全文本"
+  ],
+  "fontControl": true,
+  "keyboard": true,
+  "mobileInteractions": true,
+  "noJavaScriptReading": true,
+  "updateArticlePresent": false,
+  "failures": [],
+  "checks": [
+    {
+      "route": "",
+      "width": 375,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "",
+      "width": 768,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "",
+      "width": 1024,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "",
+      "width": 1440,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "articles/",
+      "width": 375,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "articles/",
+      "width": 768,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "articles/",
+      "width": 1024,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "articles/",
+      "width": 1440,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "categories/",
+      "width": 375,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "categories/",
+      "width": 768,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "categories/",
+      "width": 1024,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "categories/",
+      "width": 1440,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "authors/",
+      "width": 375,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "authors/",
+      "width": 768,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "authors/",
+      "width": 1024,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "authors/",
+      "width": 1440,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "issues/",
+      "width": 375,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "issues/",
+      "width": 768,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "issues/",
+      "width": 1024,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "issues/",
+      "width": 1440,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "about/",
+      "width": 375,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "about/",
+      "width": 768,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "about/",
+      "width": 1024,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "about/",
+      "width": 1440,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "colophon/",
+      "width": 375,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "colophon/",
+      "width": 768,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "colophon/",
+      "width": 1024,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "colophon/",
+      "width": 1440,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "categories/fiction/",
+      "width": 375,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "categories/fiction/",
+      "width": 768,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "categories/fiction/",
+      "width": 1024,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "categories/fiction/",
+      "width": 1440,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "categories/essays/",
+      "width": 375,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "categories/essays/",
+      "width": 768,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "categories/essays/",
+      "width": 1024,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "categories/essays/",
+      "width": 1440,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "categories/poetry/",
+      "width": 375,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "categories/poetry/",
+      "width": 768,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "categories/poetry/",
+      "width": 1024,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "categories/poetry/",
+      "width": 1440,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "categories/notes/",
+      "width": 375,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "categories/notes/",
+      "width": 768,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "categories/notes/",
+      "width": 1024,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "categories/notes/",
+      "width": 1440,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "categories/reviews/",
+      "width": 375,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "categories/reviews/",
+      "width": 768,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "categories/reviews/",
+      "width": 1024,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "categories/reviews/",
+      "width": 1440,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "issues/vol-01/",
+      "width": 375,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "issues/vol-01/",
+      "width": 768,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "issues/vol-01/",
+      "width": 1024,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "issues/vol-01/",
+      "width": 1440,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "authors/lin-ting/",
+      "width": 375,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "authors/lin-ting/",
+      "width": 768,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "authors/lin-ting/",
+      "width": 1024,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "authors/lin-ting/",
+      "width": 1440,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "authors/xu-bozhou/",
+      "width": 375,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "authors/xu-bozhou/",
+      "width": 768,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "authors/xu-bozhou/",
+      "width": 1024,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "authors/xu-bozhou/",
+      "width": 1440,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "authors/wen-wei/",
+      "width": 375,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "authors/wen-wei/",
+      "width": 768,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "authors/wen-wei/",
+      "width": 1024,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "authors/wen-wei/",
+      "width": 1440,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "authors/chen-shian/",
+      "width": 375,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "authors/chen-shian/",
+      "width": 768,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "authors/chen-shian/",
+      "width": 1024,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "authors/chen-shian/",
+      "width": 1440,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "authors/cen-ye/",
+      "width": 375,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "authors/cen-ye/",
+      "width": 768,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "authors/cen-ye/",
+      "width": 1024,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "authors/cen-ye/",
+      "width": 1440,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "articles/a-window-for-autumn/",
+      "width": 375,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "articles/a-window-for-autumn/",
+      "width": 768,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "articles/a-window-for-autumn/",
+      "width": 1024,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "articles/a-window-for-autumn/",
+      "width": 1440,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "articles/the-last-ferry/",
+      "width": 375,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "articles/the-last-ferry/",
+      "width": 768,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "articles/the-last-ferry/",
+      "width": 1024,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "articles/the-last-ferry/",
+      "width": 1440,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "articles/a-letter-to-the-tide/",
+      "width": 375,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "articles/a-letter-to-the-tide/",
+      "width": 768,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "articles/a-letter-to-the-tide/",
+      "width": 1024,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "articles/a-letter-to-the-tide/",
+      "width": 1440,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "articles/slow-snow/",
+      "width": 375,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "articles/slow-snow/",
+      "width": 768,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "articles/slow-snow/",
+      "width": 1024,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "articles/slow-snow/",
+      "width": 1440,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "articles/the-lamp-repairer/",
+      "width": 375,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "articles/the-lamp-repairer/",
+      "width": 768,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "articles/the-lamp-repairer/",
+      "width": 1024,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "articles/the-lamp-repairer/",
+      "width": 1440,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "articles/the-space-between-sentences/",
+      "width": 375,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "articles/the-space-between-sentences/",
+      "width": 768,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "articles/the-space-between-sentences/",
+      "width": 1024,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "articles/the-space-between-sentences/",
+      "width": 1440,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "search/",
+      "width": 375,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "search/",
+      "width": 768,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "search/",
+      "width": 1024,
+      "status": 200,
+      "overflow": false
+    },
+    {
+      "route": "search/",
+      "width": 1440,
+      "status": 200,
+      "overflow": false
+    }
+  ]
+}
