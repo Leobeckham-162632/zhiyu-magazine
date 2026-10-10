@@ -1,0 +1,10 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getArticles, articlePath } from '../../utils/articles';
+import { issues, categories } from '../../data/site';
+import { url } from '../../utils/urls';
+export function getStaticPaths() { return issues.map((issue) => ({ params: { issue: issue.id }, props: { issue } })); }
+const { issue } = Astro.props;
+const articles = (await getArticles()).filter((article) => article.data.issue === issue.id).sort((a, b) => a.data.order - b.data.order || a.data.slug.localeCompare(b.data.slug));
+---
+<BaseLayout title={`${issue.title} · ${issue.theme}`} description={issue.editorial}><div class="shell"><header class="page-heading"><p class="eyebrow">CONTENTS · VOL. {issue.number} · {issue.month}</p><h1>{issue.theme}</h1><p>{issue.title} · {issue.subtitle} · 共 {articles.length} 篇作品</p></header><div class="page-content"><section class="issue-intro"><span class="issue-number" aria-hidden="true">{issue.number}</span><div><p class="eyebrow">卷首语</p><h2>致，翻开这一页的你</h2><p>{issue.editorial}</p></div></section>{categories.map((category) => { const entries = articles.filter((article) => article.data.category === category.id); return entries.length > 0 && <section class="toc-section"><h2>{category.name}<small>{category.english}</small></h2><div>{entries.map((article) => <article class="toc-row"><span class="toc-index">{String(articles.indexOf(article) + 1).padStart(2, '0')}</span><div><h3><a href={url(articlePath(article))}>{article.data.title}</a></h3><p>{article.data.summary}</p></div><a class="toc-author" href={url(`authors/${article.data.authorSlug}/`)}>{article.data.author}</a><a class="toc-read" href={url(articlePath(article))} aria-label={`阅读《${article.data.title}》`}>阅读 ↗</a></article>)}</div></section>; })}<p class="demo-notice">本期为原创示例试刊。作品由 AI 为本站创作，署名均为虚构笔名；无正式刊号。</p></div></div></BaseLayout>

@@ -1,0 +1,5 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { url } from '../utils/urls';
+---
+<BaseLayout title="这一页，暂未靠岸" noindex><div class="shell not-found"><p class="eyebrow">404 · A PAGE ADRIFT</p><h1>这一页，暂未靠岸。</h1><p>链接可能已经变更，或这一篇还没有写完。<br />不妨回到目录，重新挑一处岸边。</p><a class="button" href={url('issues/')}>返回目录 ↗</a> <a class="text-link" href={url()}>回到首页</a></div></BaseLayout>

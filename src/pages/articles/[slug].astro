@@ -1,0 +1,41 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getArticles, articlePath, readingMinutes, displayDate, type Article } from '../../utils/articles';
+import { categoryById, issueById } from '../../data/site';
+import { url } from '../../utils/urls';
+export async function getStaticPaths() { return (await getArticles()).map((article) => ({ params: { slug: article.data.slug }, props: { article } })); }
+interface Props { article: Article; }
+const { article } = Astro.props;
+const data = article.data;
+const { Content } = await render(article);
+const articles = await getArticles();
+const inIssue = articles.filter((item) => item.data.issue === data.issue).sort((a, b) => a.data.order - b.data.order || a.data.slug.localeCompare(b.data.slug));
+const index = inIssue.findIndex((item) => item.data.slug === data.slug);
+const previous = inIssue[index - 1];
+const next = inIssue[index + 1];
+const other = articles.filter((item) => item.data.slug !== data.slug);
+const related = [...other.filter((item) => item.data.category === data.category), ...other.filter((item) => item.data.category !== data.category)].slice(0, 3);
+const category = categoryById(data.category);
+const issue = issueById(data.issue);
+---
+<BaseLayout title={data.title} description={data.summary} type="article" date={data.date}><div class="shell"><article class="article-shell"><header class="article-header"><nav class="breadcrumb" aria-label="当前位置"><a href={url()}>首页</a><span aria-hidden="true">/</span><a href={url(`issues/${data.issue}/`)}>VOL. {issue.number}</a><span aria-hidden="true">/</span><a href={url(`categories/${data.category}/`)}>{category.name}</a></nav><p class="eyebrow">{category.english} · {category.name}</p><h1>{data.title}</h1>{data.subtitle && <p class="article-subtitle">{data.subtitle}</p>}<div class="article-meta"><a href={url(`authors/${data.authorSlug}/`)}>{data.author}</a><time datetime={data.date}>{displayDate(data.date)}</time><a href={url(`issues/${data.issue}/`)}>{issue.title}</a><span>约 {readingMinutes(article)} 分钟阅读</span></div>{data.demo && <p class="demo-notice">试刊原创示例 · 本文由 AI 为本站创作，作者为虚构笔名，仅用于文学展示与功能演示。</p>}</header><div class="reading-toolbar" id="reading-toolbar" hidden><span>给眼睛一点余地</span><div class="font-controls" role="group" aria-label="正文字号"><button type="button" id="font-smaller" aria-label="缩小字号">A−</button><button type="button" id="font-reset" aria-label="恢复默认字号">重置</button><button type="button" id="font-larger" aria-label="放大字号">A+</button></div><span id="font-status" class="sr-only" aria-live="polite"></span></div><div class:list={['article-body', { poetry: data.category === 'poetry' }]} id="article-body"><Content /></div><div class="article-end"><span>— 全文完 —</span><a href={url(`authors/${data.authorSlug}/`)}>关于作者 · {data.author}</a><a href={url(`issues/${data.issue}/`)}>返回本期目录 ↗</a></div><nav class="prev-next" aria-label="相邻作品"><div>{previous ? <a href={url(articlePath(previous))}><span>← 上一篇</span><strong>{previous.data.title}</strong></a> : <a href={url(`issues/${data.issue}/`)}><span>本期第一篇</span><strong>回到目录</strong></a>}</div><div>{next ? <a href={url(articlePath(next))}><span>下一篇 →</span><strong>{next.data.title}</strong></a> : <a href={url('articles/')}><span>已至本期末篇</span><strong>继续阅读更多作品 →</strong></a>}</div></nav></article><section class="related" aria-labelledby="related-title"><p class="eyebrow">KEEP READING</p><h2 id="related-title">也许，你还想读</h2><div class="article-grid">{related.map((item) => <ArticleCard article={item} />)}</div></section></div></BaseLayout>
+<script>
+  const body = document.getElementById('article-body');
+  const toolbar = document.getElementById('reading-toolbar');
+  const smaller = document.getElementById('font-smaller') as HTMLButtonElement;
+  const larger = document.getElementById('font-larger') as HTMLButtonElement;
+  if (body && toolbar) {
+    toolbar.hidden = false;
+    const initial = Number.parseFloat(getComputedStyle(body).fontSize);
+    let size = initial;
+    try { const stored = Number(localStorage.getItem('zhiyu-reading-size')); if (stored >= 16 && stored <= 28) size = stored; } catch { /* 禁用本地存储时仍可调节字号 */ }
+    const apply = () => { body.style.setProperty('--reading-size', `${size}px`); smaller.disabled = size <= 16; larger.disabled = size >= 28; const status = document.getElementById('font-status'); if (status) status.textContent = `当前字号 ${size} 像素`; };
+    const change = (value: number) => { size = Math.min(28, Math.max(16, value)); apply(); try { localStorage.setItem('zhiyu-reading-size', String(size)); } catch { /* 字号偏好存储不是阅读的前提 */ } };
+    smaller.addEventListener('click', () => change(size - 2));
+    larger.addEventListener('click', () => change(size + 2));
+    document.getElementById('font-reset')?.addEventListener('click', () => change(initial));
+    apply();
+  }
+</script>

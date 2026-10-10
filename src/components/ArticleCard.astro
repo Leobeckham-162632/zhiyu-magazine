@@ -1,0 +1,14 @@
+---
+import type { Article } from '../utils/articles';
+import { articlePath, readingMinutes } from '../utils/articles';
+import { categoryById } from '../data/site';
+import { url } from '../utils/urls';
+interface Props { article: Article; index?: number; }
+const { article, index } = Astro.props;
+const data = article.data;
+---
+<article class="article-card">
+  <div class="card-meta"><span>{categoryById(data.category).name}</span><span>{index === undefined ? `${readingMinutes(article)} 分钟阅读` : String(index + 1).padStart(2, '0')}</span></div>
+  <h3><a href={url(articlePath(article))}>{data.title}</a></h3><p>{data.summary}</p>
+  <div class="card-bottom"><a class="author-link" href={url(`authors/${data.authorSlug}/`)}>{data.author}</a><a class="read-link" href={url(articlePath(article))} aria-label={`阅读《${data.title}》`}>阅读 <span aria-hidden="true">↗</span></a></div>
+</article>

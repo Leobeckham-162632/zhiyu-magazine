@@ -1,9 +1,28 @@
 ---
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import { getArticles, articlePath, readingMinutes } from '../utils/articles';
+import { site, categories, issueById, categoryById } from '../data/site';
+import { url } from '../utils/urls';
+const articles = await getArticles();
+const issue = issueById(site.currentIssue);
+const selected = articles.filter((article) => article.data.featured && article.data.issue === issue.id);
+const lead = selected[0] ?? articles.find((article) => article.data.issue === issue.id);
+const recommendations = selected.filter((article) => article !== lead).slice(0, 2);
 ---
-<!doctype html>
-<html lang="zh-CN">
-  <head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="description" content="纸屿文学杂志：在文字之间，留一座岛。2026 年秋季试刊。" /><title>纸屿 · ZHIYU Literary Magazine</title><link rel="icon" href={`${base}/favicon.svg`} type="image/svg+xml" /></head>
-  <body><main><p>ZHIYU LITERARY MAGAZINE · VOL. 01</p><h1>纸屿</h1><h2>在文字之间，留一座岛。</h2><p>2026 年秋季试刊 · 独立文学展示与技术实验项目</p><hr /><p>散文 / 诗歌 / 小说 / 随笔 / 文学评论</p><p>第一期即将展开。这里收存缓慢的日常，和那些尚未说完的话。</p></main></body>
-</html>
-<style>body{margin:0;background:#f5f2e9;color:#20382f;font-family:"Songti SC","SimSun",serif}main{max-width:900px;margin:10vh auto;padding:32px}h1{font-size:clamp(90px,20vw,190px);font-weight:400;margin:30px 0}h2{font-weight:400}p{line-height:2}hr{border:0;border-top:1px solid #b8beb2;margin:50px 0}</style>
+<BaseLayout>
+  <div class="shell">
+    <div class="issue-strip"><span>独立文学试刊 <span class="tiny-dot">·</span> {issue.title}</span><span>VOL. {issue.number} <span class="tiny-dot">/</span> {issue.month}</span></div>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-copy"><p class="eyebrow">A PLACE FOR WORDS TO LAND</p><h1 id="hero-title">让文字，<br />有处<span class="ink-accent">靠岸</span>。</h1><p class="hero-intro">把日常写成远方，把沉默读成回响。<br />在匆忙的世界里，留一页给自己。</p><a class="button" href={url(`issues/${issue.id}/`)}>翻开本期 <span aria-hidden="true">↗</span></a><div class="hero-footnote"><span class="vertical-rule"></span><p>本期主题 <strong>{issue.theme}</strong><br /><span>{issue.subtitle}</span></p></div></div>
+      <a class="cover-wrap" href={url(`issues/${issue.id}/`)} aria-label={`翻阅${issue.title}：${issue.theme}`}><div class="magazine-cover"><div class="cover-top"><span>{site.english}</span><span>VOL. {issue.number}</span></div><div class="cover-masthead">{site.name}<span>秋</span></div><img class="cover-art" src={url('images/island.svg')} alt="原创抽象岛屿插画：赭红的太阳、深绿的山岸与弯曲的河流" width="700" height="650" fetchpriority="high" /><div class="cover-bottom"><span>{issue.theme}<small>LETTERS FROM THE SHORE</small></span><span>{issue.month}<br />试刊 · 原创示例</span></div></div><span class="cover-caption">一座由文字构成的岛 <span aria-hidden="true">↗</span></span></a>
+    </section>
+    <section class="editorial" aria-labelledby="editorial-title"><div><p class="eyebrow">FROM THE EDITOR</p><h2 id="editorial-title">致，翻开这一页的你</h2><span class="editorial-sign">纸屿 · 卷首语</span></div><p>{issue.editorial}</p><span class="editorial-seal" aria-hidden="true">纸<br />屿</span></section>
+    <section class="recommendations" aria-labelledby="recommendations-title"><div class="section-heading"><div><p class="eyebrow">EDITOR'S SELECTION</p><h2 id="recommendations-title">值得停留的文字</h2></div><a class="text-link" href={url('articles/')}>阅读全部作品 <span aria-hidden="true">↗</span></a></div>
+      {lead && <div class="recommend-grid"><article class="lead-story"><a class="lead-art" href={url(articlePath(lead))} aria-label={`阅读《${lead.data.title}》`}><img src={url('images/window.svg')} alt="原创线描：一扇向着树影打开的窗" width="900" height="520" loading="lazy" /><span>{categoryById(lead.data.category).english.toUpperCase()} / {categoryById(lead.data.category).name}</span></a><div class="lead-story-copy"><p class="eyebrow">主编推荐 <span>·</span> {readingMinutes(lead)} 分钟阅读</p><h3><a href={url(articlePath(lead))}>{lead.data.title}</a></h3><p>{lead.data.summary}</p><a class="text-link" href={url(`authors/${lead.data.authorSlug}/`)}>{lead.data.author} <span>—</span> 试刊示例作者</a></div></article><div class="side-stories">{recommendations.map((article, index) => <ArticleCard article={article} index={index + 1} />)}<a class="issue-callout" href={url(`issues/${issue.id}/`)}><span>本期完整目录</span><strong>{issue.theme}</strong><span>共 {articles.filter((article) => article.data.issue === issue.id).length} 篇作品 <span aria-hidden="true">↗</span></span></a></div></div>}
+    </section>
+    <section class="latest" aria-labelledby="latest-title"><div class="section-heading"><div><p class="eyebrow">RECENT WRITING</p><h2 id="latest-title">新近上岛</h2></div><p class="quiet">写下的每一行，都有回声。</p></div><div class="article-grid">{articles.slice(0, 6).map((article, index) => <ArticleCard article={article} index={index} />)}</div></section>
+    <section class="category-section" aria-labelledby="category-title"><div class="section-heading"><div><p class="eyebrow">FIND YOUR READING</p><h2 id="category-title">循着文字，走向不同的岸</h2></div></div><div class="category-links">{categories.map((category, index) => <a href={url(`categories/${category.id}/`)}><span>0{index + 1}</span><h3>{category.name}<small>{category.english}</small></h3><span aria-hidden="true">↗</span></a>)}</div></section>
+    <section class="about-band"><p class="eyebrow">ABOUT ZHIYU</p><h2>纸很轻。<br />文字，可以是一座岛。</h2><div><p>纸屿是一本文学试刊，也是一场关于阅读的技术实验。我们关心细小的经验、陌生的声音，以及文字让人与人靠近的可能。</p><a class="text-link" href={url('about/')}>认识纸屿 <span aria-hidden="true">↗</span></a></div></section>
+  </div>
+</BaseLayout>

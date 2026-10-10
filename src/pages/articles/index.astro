@@ -1,0 +1,9 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getArticles } from '../../utils/articles';
+import { categories } from '../../data/site';
+import { url } from '../../utils/urls';
+const articles = await getArticles();
+---
+<BaseLayout title="全部作品" description="翻阅纸屿全部小说、散文、诗歌、随笔与文学评论。"><div class="shell"><header class="page-heading"><p class="eyebrow">THE READING ROOM</p><h1>每一篇，都通往一处远方。</h1><p>共 {articles.length} 篇作品。试刊示例内容，免费公开阅读。</p></header><nav class="filter-nav" aria-label="作品栏目"><a href={url('articles/')} aria-current="page">全部作品</a>{categories.map((category) => <a href={url(`categories/${category.id}/`)}>{category.name}</a>)}<a href={url('search/')}>搜索作品 ↗</a></nav><div class="page-content article-grid">{articles.map((article, index) => <ArticleCard article={article} index={index} />)}</div></div></BaseLayout>

@@ -3,13 +3,23 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=22.12.0" },
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "astro dev --host 127.0.0.1",
     "build": "astro build",
     "preview": "astro preview --host 127.0.0.1",
-    "check": "astro check"
+    "check": "astro check",
+    "test:build": "node scripts/check-build.mjs",
+    "test:browser": "node scripts/browser-qa.mjs"
   },
-  "dependencies": { "astro": "7.3.8" },
-  "devDependencies": { "@astrojs/check": "^0.9.9", "typescript": "^5.9.3" }
+  "dependencies": {
+    "astro": "7.3.8"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.9",
+    "playwright": "1.62.1",
+    "typescript": "^5.9.3"
+  }
 }
